@@ -18,7 +18,8 @@
     "morgan": "^1.9.1",
     "nodemon": "^1.18.9",
     "sequelize": "^4.42.0",
-    "sqlite3": "^4.0.6"
+    "sqlite3": "^4.0.6",
+    "vuetify": "^1.4.3"
   },
   "devDependencies": {
     "eslint": "^5.12.1",
