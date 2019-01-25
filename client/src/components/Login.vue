@@ -44,10 +44,12 @@ export default {
   methods: {
     async login () {
       try {
-        await AuthenticationService.login({// call login in the AS component then wait for a response
+        const response = await AuthenticationService.login({// call login in the AS component then wait for a response
           email: this.email,
           password: this.password
         })
+        this.$store.dispatch('setToken', response.data.token)
+        this.$store.dispatch('setUser', response.data.user)
       } catch (error) {
         this.error = error.response.data.error // what is returned from axios
       }
