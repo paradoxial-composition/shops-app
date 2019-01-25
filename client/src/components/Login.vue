@@ -14,15 +14,16 @@
           <br>
           <v-text-field
             label="Password"
+            type="password"
             v-model="password"
             ></v-text-field>
           <br>
           <div class="error" v-html="error"/>
           <v-btn class="green"
-            @click="register"
+            @click="login"
             dark
             >
-            Register
+            Login
             </v-btn>
         </div>
       </div>
@@ -43,7 +44,7 @@ export default {
   methods: {
     async login () {
       try {
-        await AuthenticationService.login({// call register in the AS component then wait for a response
+        await AuthenticationService.login({// call login in the AS component then wait for a response
           email: this.email,
           password: this.password
         })
