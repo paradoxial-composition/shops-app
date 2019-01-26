@@ -3,8 +3,10 @@
     <v-app>
       <page-header/>
       <main>
-        <v-container fluid>
+        <v-container>
+          <v-flex xs12 sm6 offset-sm3>
            <router-view/>
+          </v-flex>
         </v-container>
       </main>
     </v-app>
