@@ -3,12 +3,10 @@
     <v-toolbar-title class="mr-4">
       <span
         class="home"
-        @click="navigateTo({name: 'root'})">
+        router to="root">
         Shops
       </span>
     </v-toolbar-title>
-
-   <v-spacer></v-spacer>
 
     <v-toolbar-items>
       <v-btn
@@ -17,9 +15,13 @@
         >
         Nearby Shops
       </v-btn>
+    </v-toolbar-items>
 
+   <v-spacer></v-spacer>
+
+    <v-toolbar-items>
       <v-btn
-      v-if="!$store.state.isUserLoggedIn" 
+      v-if="!$store.state.isUserLoggedIn"
       flat dark
         router to="login"
         >
@@ -35,7 +37,7 @@
       </v-btn>
 
       <v-btn
-      v-if="$store.state.isUserLoggedIn" 
+      v-if="$store.state.isUserLoggedIn"
       flat dark
         @click="logout"
         >

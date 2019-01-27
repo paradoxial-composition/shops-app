@@ -1,5 +1,6 @@
 module.exports = {
   port: process.env.PORT || 8081,
+  portAPI: process.env.PORT || 8082,
   db: {
     database: process.env.DB_NAME || 'shopsapp',
     user: process.env.DB_USER || 'shopsapp',
