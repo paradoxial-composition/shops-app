@@ -18,8 +18,12 @@ var ShopSchema = new Schema({
   },
   city: {
     type: String
+  },
+  location: {
+    type: { type: String },
+    coordinates: []
   }
 },
-{ collection : 'Shops' })
+{ collection: 'Shops' })
 
 module.exports = mongoose.model('Shops', ShopSchema)

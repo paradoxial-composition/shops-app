@@ -1,8 +1,8 @@
 <template>
-  <v-layout column>
-    <v-flex xs6 offset-xs3>
+  <v-layout class="login-container">
+    <v-flex xs12 sm6 offset-sm3>
       <div class="white elevation-2">
-        <v-toolbar flat dense class="green" dark>
+        <v-toolbar flat dense class="login-toolbar" dark>
           <v-toolbar-title>Login</v-toolbar-title>
         </v-toolbar>
 
@@ -19,7 +19,7 @@
             ></v-text-field>
           <br>
           <div class="error" v-html="error"/>
-          <v-btn class="green"
+          <v-btn style="background-color: #6050dc;"
             @click="login"
             dark
             >
@@ -62,5 +62,12 @@ export default {
 <style scoped>
 .error {
   color: red;
+}
+.login-container {
+  margin-top: 20%;
+  width: 100%;
+}
+.login-toolbar {
+  background-color: #6050dc;
 }
 </style>

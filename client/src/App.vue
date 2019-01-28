@@ -4,7 +4,7 @@
       <page-header/>
       <main>
         <v-container>
-          <v-flex xs12 sm6 offset-sm3>
+          <v-flex >
            <router-view/>
           </v-flex>
         </v-container>
