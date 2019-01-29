@@ -30,6 +30,14 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background-image: url("https://wscreenwallpapers.com/wp-content/uploads/2015/10/streets-new-york345.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
   margin-top: 60px;
+}
+
+.component-container {
+
 }
 </style>

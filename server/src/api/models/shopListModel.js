@@ -4,9 +4,6 @@ var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 
 var ShopSchema = new Schema({
-  _id: {
-    type: String
-  },
   picture: {
     type: String
   },

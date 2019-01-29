@@ -1,5 +1,5 @@
 <template>
-  <v-layout class="shop-container">
+   <v-layout class="shop-container">
    <v-flex>
      <div>
        <v-toolbar inverted-scroll flat dense class="shop-toolbar" dark>
@@ -69,28 +69,19 @@ export default {
     }
   },
   created () {
-    axios.get('http://localhost:8081/nearby')
+    if (!this.$store.state.isUserLoggedIn) {
+      this.$router.push({
+        name: 'login'
+      })
+    } else {
+    var userId = this.$store.state.user.id
+    axios.get('http://localhost:8081/prefferedshops/' + userId)
       .then((response) => {
         this.shops = response.data
       })
       .catch((error) => {
         console.log(error)
       })
-  },
-  methods: {
-    addPrefferedShop (userID, id) {
-      var newPerefferedShop = {
-        userId: userID,
-        shopId: id
-      }
-
-      axios.post('http://localhost:8081/prefferedshops', newPerefferedShop)
-        .then((response) => {
-          console.log(response)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
     }
   }
 }

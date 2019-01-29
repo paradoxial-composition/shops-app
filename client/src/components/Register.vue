@@ -50,6 +50,13 @@ export default {
         })
         this.$store.dispatch('setToken', response.data.token)
         this.$store.dispatch('setUser', response.data.user)
+        AuthenticationService.login({
+          email: this.email,
+          password: this.password
+        })
+        this.$router.push({
+          name: 'nearbyshops'
+        })
       } catch (error) {
         this.error = error.response.data.error // what is returned from axios
       }

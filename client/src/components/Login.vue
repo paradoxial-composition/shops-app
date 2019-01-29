@@ -18,7 +18,7 @@
             v-model="password"
             ></v-text-field>
           <br>
-          <div class="error" v-html="error"/>
+          <div class="danger-alert" v-html="error"/>
           <v-btn style="background-color: #6050dc;"
             @click="login"
             dark
@@ -50,6 +50,9 @@ export default {
         })
         this.$store.dispatch('setToken', response.data.token)
         this.$store.dispatch('setUser', response.data.user)
+        this.$router.push({
+          name: 'nearbyshops'
+        })
       } catch (error) {
         this.error = error.response.data.error // what is returned from axios
       }
@@ -60,9 +63,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.error {
-  color: red;
-}
 .login-container {
   margin-top: 20%;
   width: 100%;

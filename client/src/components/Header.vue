@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar fixed style="background-color: #6050dc;" dark>
+  <v-toolbar fixed class="nav-header" dark>
     <v-toolbar-title class="mr-4">
       <span
         class="home"
@@ -14,6 +14,16 @@
         router to="nearbyshops"
         >
         Nearby Shops
+      </v-btn>
+    </v-toolbar-items>
+
+    <v-toolbar-items>
+      <v-btn
+      v-if="$store.state.isUserLoggedIn"
+      flat dark
+        router to="prefferedshops"
+        >
+        Preffered Shops
       </v-btn>
     </v-toolbar-items>
 
@@ -69,5 +79,8 @@ export default {
 
 .home:hover {
   color: goldenrod;
+}
+.nav-header {
+  background-color: #6050dc;
 }
 </style>

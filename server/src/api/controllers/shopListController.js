@@ -10,6 +10,7 @@ exports.list_all_shops = function (req, res) {
     if (err) {
       res.send(err)
     } else {
+      res.status(200)
       res.json(shop)
     }
   })
@@ -27,10 +28,11 @@ exports.list_all_shops = function (req, res) {
 // }
 
 exports.read_a_shop = function (req, res) {
-  Shops.find({}, function (err, shop) {
+  Shops.findOne({ _id: req.params._id }, function (err, shop) {
     if (err) {
       res.send(err)
     } else {
+      res.status(200)
       res.json(shop)
     }
   })
@@ -58,11 +60,10 @@ exports.nearby_shop = function (req, res) {
           if (err) {
             res.send(err)
           } else {
+            res.status(200)
             res.json(shop)
           }
         })
-        console.log(coord.longitude)
-        console.log(coord.latitude)
       } catch (err) {
         console.log(err)
       }
