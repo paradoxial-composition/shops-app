@@ -3,7 +3,26 @@
    <v-flex>
      <div>
        <v-toolbar inverted-scroll flat dense class="shop-toolbar" dark>
-          <v-toolbar-title style="margin-left:35%">Shops that are near your location</v-toolbar-title>
+         <v-toolbar-items>
+            <v-menu offset-y>
+              <v-btn
+                slot="activator"
+                color="#6050dc"
+                dark
+              >
+                Radius
+              </v-btn>
+              <v-list>
+                <v-list-tile
+                  v-for="(item, index) in Radius"
+                  :key="index"
+                  @click="getShopsInRadius(item.distance)"
+                >
+                  <v-list-tile-title>{{ item.label }}</v-list-tile-title>
+                </v-list-tile>
+              </v-list>
+            </v-menu>
+          </v-toolbar-items>
         </v-toolbar>
 
         <div class="pl-4 pr-4 pt-2 pb-2">
@@ -65,7 +84,20 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      shops: []
+      shops: [],
+      Radius: [
+        {
+          label: '5 Km radius',
+          distance: '5000'
+        },
+        {
+          label: '10 Km radius',
+          distance: '10000'
+        },
+        {
+          label: '15 Km radius',
+          distance: '15000'
+        }]
     }
   },
   created () {
@@ -87,6 +119,15 @@ export default {
       axios.post('http://localhost:8081/prefferedshops', newPerefferedShop)
         .then((response) => {
           console.log(response)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    getShopsInRadius (radius) {
+      axios.get('http://localhost:8081/nearby/radius/' + radius)
+        .then((response) => {
+          this.shops = response.data
         })
         .catch((error) => {
           console.log(error)

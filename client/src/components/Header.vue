@@ -32,11 +32,20 @@
     <v-toolbar-items>
       <v-btn
       v-if="!$store.state.isUserLoggedIn"
-      flat dark
-        router to="login"
-        >
+       @click="dialog = true"
+        flat
+        dark
+      >
         Login
       </v-btn>
+      <v-dialog
+      width="50%"
+      v-model="dialog"
+    >
+      <v-card>
+        <Login @close="dialog = false"/>
+      </v-card>
+    </v-dialog>
 
       <v-btn
         v-if="!$store.state.isUserLoggedIn"
@@ -58,7 +67,17 @@
 </template>
 
 <script>
+import Login from '@/components/Login.vue'
 export default {
+  name: 'Header',
+  components: {
+    Login
+  },
+  data () {
+    return {
+      dialog: false
+    }
+  },
   methods: {
     logout () {
       this.$store.dispatch('setToken', null)

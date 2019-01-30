@@ -1,7 +1,7 @@
 <template>
-  <v-layout class="login-container">
-    <v-flex xs12 sm6 offset-sm3>
-      <div class="white elevation-2">
+  <v-layout >
+    <v-flex >
+      <div >
         <v-toolbar flat dense class="login-toolbar" dark>
           <v-toolbar-title>Login</v-toolbar-title>
         </v-toolbar>
@@ -50,6 +50,8 @@ export default {
         })
         this.$store.dispatch('setToken', response.data.token)
         this.$store.dispatch('setUser', response.data.user)
+        this.$emit('close')
+        this.email = this.password = ''
         this.$router.push({
           name: 'nearbyshops'
         })

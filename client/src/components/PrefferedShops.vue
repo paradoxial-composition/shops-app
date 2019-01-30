@@ -3,7 +3,7 @@
    <v-flex>
      <div>
        <v-toolbar inverted-scroll flat dense class="shop-toolbar" dark>
-          <v-toolbar-title style="margin-left:35%">Shops that are near your location</v-toolbar-title>
+          <v-toolbar-title style="margin-left:40%">Your preffered shops</v-toolbar-title>
         </v-toolbar>
 
         <div class="pl-4 pr-4 pt-2 pb-2">
@@ -74,14 +74,14 @@ export default {
         name: 'login'
       })
     } else {
-    var userId = this.$store.state.user.id
-    axios.get('http://localhost:8081/prefferedshops/' + userId)
-      .then((response) => {
-        this.shops = response.data
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+      var userId = this.$store.state.user.id
+      axios.get('http://localhost:8081/prefferedshops/' + userId)
+        .then((response) => {
+          this.shops = response.data
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     }
   }
 }

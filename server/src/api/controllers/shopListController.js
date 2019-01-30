@@ -39,11 +39,11 @@ exports.read_a_shop = function (req, res) {
 }
 
 exports.nearby_shop = function (req, res) {
+  let radius = req.params.rd
   axios.get('https://ipapi.co/json') // get the browser's current position
     .then((response) => {
       var coord = response.data
       try {
-        // Shops.createIndexes({ 'location': '2dsphere' })
         Shops.aggregate([ // look for nearby shops using mongo's distance calculation method geoNear
           {
             $geoNear: {
@@ -53,7 +53,7 @@ exports.nearby_shop = function (req, res) {
               },
               spherical: true,
               distanceField: 'distance',
-              maxDistance: 10000
+              maxDistance: parseInt(radius) || 10000// if radius is null then default distance is 10Km
             }
           }
         ], function (err, shop) {
