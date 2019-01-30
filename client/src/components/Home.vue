@@ -3,13 +3,22 @@
    <v-flex>
      <div>
        <v-toolbar inverted-scroll flat dense class="shop-toolbar" dark>
-          <v-toolbar-title style="margin-left:45%">Shops</v-toolbar-title>
+       <v-spacer></v-spacer>
+          <v-toolbar-items>
+            <v-text-field
+            label="Search"
+            single-line
+            height="1.5rem"
+            v-model="search"
+          ></v-text-field>
+            <v-icon>search</v-icon>
+          </v-toolbar-items>
         </v-toolbar>
 
         <div class="pl-4 pr-4 pt-2 pb-2">
             <div class="card-container">
             <v-layout class="card-inner-container"
-                v-for="shop in shops"
+                v-for="shop in filteredShops"
                 :key="shop._id"
                 >
                 <v-flex xs14>
@@ -65,6 +74,7 @@ import axios from 'axios'
 export default {
   data () {
     return {
+      search: '',
       shops: []
     }
   },
@@ -92,6 +102,13 @@ export default {
           console.log(error)
         })
     }
+  },
+  computed: {
+    filteredShops () {
+      return this.shops.filter((shop) => {
+        return shop.name.toLowerCase().includes(this.search.toLowerCase())
+      })
+    }
   }
 }
 </script>
@@ -106,6 +123,7 @@ export default {
 }
 .shop-toolbar {
   background-color: #6050dc;
+  border-radius:50px;
 }
 .card-container {
   margin-top: 2.5%;

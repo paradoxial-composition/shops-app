@@ -1,11 +1,11 @@
 <template>
   <v-toolbar fixed class="nav-header" dark>
     <v-toolbar-title class="mr-4">
-      <span
-        class="home"
-        router to="root">
-        Shops
-      </span>
+      <v-btn
+        icon
+        @click="allShops">
+        <v-icon>home</v-icon>
+      </v-btn>
     </v-toolbar-title>
 
     <v-toolbar-items>
@@ -85,6 +85,11 @@ export default {
       this.$router.push({
         name: 'root'
       })
+    },
+    allShops () {
+      this.$router.push({
+        name: 'shops'
+      })
     }
   }
 }
@@ -92,13 +97,7 @@ export default {
 </script>
 
 <style scoped>
-.home {
-  cursor: pointer;
-}
 
-.home:hover {
-  color: goldenrod;
-}
 .nav-header {
   background-color: #6050dc;
 }

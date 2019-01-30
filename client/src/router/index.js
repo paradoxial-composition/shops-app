@@ -5,6 +5,7 @@ import Register from '@/components/Register'
 import Login from '@/components/Login'
 import NearbyShops from '@/components/NearbyShops'
 import PrefferedShops from '@/components/PrefferedShops'
+import store from '@/store/store'
 
 Vue.use(Router)
 
@@ -13,6 +14,11 @@ export default new Router({
     {
       path: '/',
       name: 'root',
+      component: Home
+    },
+    {
+      path: '/shops',
+      name: 'shops',
       component: Home
     },
     {
@@ -33,7 +39,18 @@ export default new Router({
     {
       path: '/prefferedshops',
       name: 'prefferedshops',
-      component: PrefferedShops
+      component: PrefferedShops,
+      beforeEnter: (to, from, next) => {
+        if (store.state.user != null) {
+          next()
+        } else {
+          next('/shops')
+        }
+      }
+    },
+    {
+      path: '*',
+      redirect: 'nearbyshops'
     }
   ]
 })

@@ -5,12 +5,12 @@
        <v-toolbar inverted-scroll flat dense class="shop-toolbar" dark>
          <v-toolbar-items>
             <v-menu offset-y>
-              <v-btn
+              <v-btn icon
                 slot="activator"
                 color="#6050dc"
                 dark
               >
-                Radius
+              <v-icon>my_location</v-icon>
               </v-btn>
               <v-list>
                 <v-list-tile
@@ -22,13 +22,25 @@
                 </v-list-tile>
               </v-list>
             </v-menu>
+         </v-toolbar-items>
+
+            <v-spacer></v-spacer>
+
+          <v-toolbar-items>
+            <v-text-field
+            label="Search"
+            single-line
+            height="1.5rem"
+            v-model="search"
+          ></v-text-field>
+            <v-icon>search</v-icon>
           </v-toolbar-items>
         </v-toolbar>
 
         <div class="pl-4 pr-4 pt-2 pb-2">
             <div class="card-container">
             <v-layout class="card-inner-container"
-                v-for="shop in shops"
+                v-for="shop in filteredShops"
                 :key="shop._id"
                 >
                 <v-flex xs14>
@@ -84,6 +96,7 @@ import axios from 'axios'
 export default {
   data () {
     return {
+      search: '',
       shops: [],
       Radius: [
         {
@@ -133,6 +146,13 @@ export default {
           console.log(error)
         })
     }
+  },
+  computed: {
+    filteredShops () {
+      return this.shops.filter((shop) => {
+        return shop.name.toLowerCase().includes(this.search.toLowerCase())
+      })
+    }
   }
 }
 </script>
@@ -147,6 +167,7 @@ export default {
 }
 .shop-toolbar {
   background-color: #6050dc;
+  border-radius:50px;
 }
 .card-container {
   margin-top: 2.5%;
