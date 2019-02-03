@@ -4,6 +4,7 @@ var port = process.env.PORT || 8085
 var mongoose = require('mongoose')
 require('./models/shopListModel')
 require('./models/prefferedShopListModel')
+require('./models/dislikedShopListModel')
 var bodyParser = require('body-parser')
 
 mongoose.Promise = global.Promise
@@ -19,5 +20,7 @@ routes(app)
 var prefferedRoutes = require('./routes/prefferedShopListRoutes')
 prefferedRoutes(app)
 
+var dislikedRoutes = require('./routes/dislikedShopListRoutes')
+prefferedRoutes(app)
+
 app.listen(port)
-console.log('shop List started on:' + port)

@@ -48,7 +48,7 @@
                     <v-spacer></v-spacer>
                     <v-btn
                       icon
-                      @click="unprefferShop($store.state.user.id, shop._id, index)">
+                      @click="undislikeShop($store.state.user.id, shop._id, index)">
                         <v-icon>delete</v-icon>
                     </v-btn>
                     </v-card-actions>
@@ -75,20 +75,21 @@ export default {
   },
   created () {
     var userId = this.$store.state.user.id
-    axios.get('http://localhost:8081/prefferedshops/' + userId)
+    axios.get('http://localhost:8081/dislikedshops/' + userId)
       .then((response) => {
         this.shops = response.data
       })
       .catch((error) => {
         console.log(error)
       })
+    // }
   },
   methods: {
-    unprefferShop (userID, id, index) {
+    undislikeShop (userID, id, index) {
       let userId = userID
       let shopId = id
 
-      axios.delete('http://localhost:8081/deleteprefferedshops/' + userId + '/' + shopId)
+      axios.delete('http://localhost:8081/deletedislikedshops/' + userId + '/' + shopId)
         .then((response) => {
           this.shops.splice(index, 1)
         })

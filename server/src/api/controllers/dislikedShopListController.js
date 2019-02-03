@@ -1,13 +1,13 @@
 'use strict'
 
 var mongoose = require('mongoose')
-var PreffShops = mongoose.model('PrefferedShops')
+var DislikedShops = mongoose.model('DislikedShops')
 var shops = mongoose.model('Shops')
 
 var axios = require('axios')
 
-exports.list_all_preffered_shops = function (req, res) {
-  PreffShops.find({}, function (err, shop) {
+exports.list_all_disliked_shops = function (req, res) {
+  DislikedShops.find({}, function (err, shop) {
     if (err) {
       res.send(err)
     } else {
@@ -16,9 +16,9 @@ exports.list_all_preffered_shops = function (req, res) {
   })
 }
 
-exports.list_user_preffered_shops = function (req, res) { // this function drove me crazy but i freaking over came it !!!!!!!!!!!!!!!!!!!!!
+exports.list_user_disliked_shops = function (req, res) { // this function drove me crazy but i freaking over came it !!!!!!!!!!!!!!!!!!!!!
   // let userShopList = []
-  PreffShops.find({ userId: req.params.userId }, function (err, shop) { // we look for all the shopIds that this user has liked
+  DislikedShops.find({ userId: req.params.userId }, function (err, shop) { // we look for all the shopIds that this user has liked
     if (err) {
       res.send(err)
     } else { // our array shop is a json object array wich contains all the shopId s our user has liked
@@ -38,8 +38,8 @@ exports.list_user_preffered_shops = function (req, res) { // this function drove
   })
 }
 
-exports.create_a_preffered_shop = function (req, res) {
-  var newshop = new PreffShops(req.body)
+exports.create_a_disliked_shop = function (req, res) {
+  var newshop = new DislikedShops(req.body)
   newshop.save(function (err, shop) {
     if (err) {
       res.send(err)
@@ -50,8 +50,8 @@ exports.create_a_preffered_shop = function (req, res) {
   })
 }
 
-exports.delete_a_preffered_shop = function (req, res) {
-  PreffShops.remove({ _id: req.params._id }, function (err, shop) {
+exports.delete_a_disliked_shop = function (req, res) {
+  DislikedShops.remove({ _id: req.params._id }, function (err, shop) {
     if (err) {
       res.send(err)
     } else {
@@ -61,8 +61,8 @@ exports.delete_a_preffered_shop = function (req, res) {
   })
 }
 
-exports.delete_user_preffered_shop = function (req, res) {
-  PreffShops.findOneAndRemove({ $and: [ { userId: req.params.userId }, { shopId: mongoose.Types.ObjectId(req.params.shopId) } ] }, function (err, shop) {
+exports.delete_user_disliked_shop = function (req, res) {
+  DislikedShops.findOneAndRemove({ $and: [ { userId: req.params.userId }, { shopId: mongoose.Types.ObjectId(req.params.shopId) } ] }, function (err, shop) {
     if (err) {
       res.send(err)
     } else {
@@ -72,8 +72,8 @@ exports.delete_user_preffered_shop = function (req, res) {
   })
 }
 
-exports.delete_all_preffered_shop = function (req, res) {
-  PreffShops.findAndRemove({ userId: req.params.userId }, function (err, shop) {
+exports.delete_all_disliked_shop = function (req, res) {
+  DislikedShops.findAndRemove({ userId: req.params.userId }, function (err, shop) {
     if (err) {
       res.send(err)
     } else {
@@ -83,8 +83,8 @@ exports.delete_all_preffered_shop = function (req, res) {
   })
 }
 
-exports.read_a_preffered_shop = function (req, res) {
-  PreffShops.findById(req.params._id, function (err, shop) {
+exports.read_a_disliked_shop = function (req, res) {
+  DislikedShops.findById(req.params._id, function (err, shop) {
     if (err) {
       res.send(err)
     } else {
@@ -94,13 +94,13 @@ exports.read_a_preffered_shop = function (req, res) {
   })
 }
 
-// exports.nearby_preffered_shop = function (req, res) {
+// exports.nearby_disliked_shop = function (req, res) {
 //   axios.get('https://ipapi.co/json') // get the browser's current position
 //     .then((response) => {
 //       var coord = response.data
 //       try {
 //         // Shops.createIndexes({ 'location': '2dsphere' })
-//         PreffShops.aggregate([ // look for nearby shops using mongo's distance calculation method geoNear
+//         DislikedShops.aggregate([ // look for nearby shops using mongo's distance calculation method geoNear
 //           {
 //             $geoNear: {
 //               near: {

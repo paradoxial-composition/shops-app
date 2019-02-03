@@ -40,8 +40,8 @@
         <div class="pl-4 pr-4 pt-2 pb-2">
             <div class="card-container">
             <v-layout class="card-inner-container"
-                v-for="shop in filteredShops"
-                :key="shop._id"
+                v-for="(shop, index) in filteredShops"
+                :key="index"
                 >
                 <v-flex xs14>
                 <v-card
@@ -76,7 +76,7 @@
                     <v-btn
                       v-if="$store.state.isUserLoggedIn"
                       icon
-                      @click="dislikeShop($store.state.user.id, shop._id)">
+                      @click="dislikeShop($store.state.user.id, shop._id, index)">
                         <v-icon>thumb_down</v-icon>
                     </v-btn>
                     </v-card-actions>
@@ -115,13 +115,25 @@ export default {
     }
   },
   created () {
-    axios.get('http://localhost:8081/nearby/')
-      .then((response) => {
-        this.shops = response.data
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    if (this.$store.state.user != null) {
+      console.log('i m loged in: ' + this.$store.state.user)
+      var userId = this.$store.state.user.id
+      axios.get('http://localhost:8081/nearbyuser/' + userId)
+        .then((response) => {
+          this.shops = response.data
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    } else {
+      axios.get('http://localhost:8081/nearby/')
+        .then((response) => {
+          this.shops = response.data
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
   },
   methods: {
     addPrefferedShop (userID, id) {
@@ -138,21 +150,38 @@ export default {
           console.log(error)
         })
     },
-    dislikeShop (userID, id) {
+    dislikeShop (userID, id, index) {
       var dislikedShop = {
         userId: userID,
         shopId: id
       }
-      console.log(dislikedShop)
-    },
-    getShopsInRadius (radius) {
-      axios.get('http://localhost:8081/nearby/radius/' + radius)
+
+      axios.post('http://localhost:8081/dislikedshops', dislikedShop)
         .then((response) => {
-          this.shops = response.data
+          this.shops.splice(index, 1)
         })
         .catch((error) => {
           console.log(error)
         })
+    },
+    getShopsInRadius (radius) {
+      if (this.$store.user != null) {
+        axios.get('http://localhost:8081/nearbyuser/' + this.$store.state.user.id + '/' + radius)
+          .then((response) => {
+            this.shops = response.data
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+      } else {
+        axios.get('http://localhost:8081/nearby/radius/' + radius)
+          .then((response) => {
+            this.shops = response.data
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+      }
     }
   },
   computed: {

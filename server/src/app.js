@@ -8,6 +8,7 @@ const config = require('./config/config')
 var mongoose = require('mongoose')
 require('./api/models/shopListModel')
 require('./api/models/prefferedShopListModel')
+require('./api/models/dislikedShopListModel')
 
 mongoose.Promise = global.Promise
 mongoose.connect('mongodb://localhost/MyShops', { useNewUrlParser: true })
@@ -23,6 +24,7 @@ require('./routes')(app)
 require('./api/routes/shopListRoutes')(app)
 
 require('./api/routes/prefferedShopListRoutes')(app)
+require('./api/routes/dislikedShopListRoutes')(app)
 
 app.listen(config.portAPI)
 console.log('shop List started on:' + config.portAPI)

@@ -14,6 +14,12 @@ module.exports = function (app) {
   app.route('/nearby')
     .get(shopList.nearby_shop)
 
+  app.route('/nearbyuser/:id')
+    .get(shopList.nearby_user_shop)
+
+  app.route('/nearbyuser/:id/:rd')
+    .get(shopList.nearby_user_shop)
+
   app.route('/nearby/radius/:rd')
     .get(shopList.nearby_shop)
 
