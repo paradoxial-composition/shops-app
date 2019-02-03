@@ -19,8 +19,8 @@
         <div class="pl-4 pr-4 pt-2 pb-2">
             <div class="card-container">
             <v-layout class="card-inner-container"
-                v-for="shop in filteredShops"
-                :key="shop._id"
+                v-for="(shop, index) in filteredShops"
+                :key="index"
                 >
                 <v-flex xs14>
                 <v-card
@@ -47,15 +47,9 @@
                     <v-card-actions class="white">
                     <v-spacer></v-spacer>
                     <v-btn
-                      v-if="$store.state.isUserLoggedIn"
                       icon
-                      @click="addPrefferedShop($store.state.user.id, shop._id)">
-                        <v-icon>thumb_up</v-icon>
-                    </v-btn>
-                    <v-btn
-                      v-if="$store.state.isUserLoggedIn"
-                      icon>
-                        <v-icon>thumb_down</v-icon>
+                      @click="unprefferShop($store.state.user.id, shop._id, index)">
+                        <v-icon>delete</v-icon>
                     </v-btn>
                     </v-card-actions>
                 </v-card>
@@ -80,15 +74,29 @@ export default {
     }
   },
   created () {
-    if (!this.$store.state.isUserLoggedIn) {
-      this.$router.push({
-        name: 'login'
-      })
-    } else {
+    // if (!this.$store.state.isUserLoggedIn) {
+    //   this.$router.push({
+    //     name: 'login'
+    //   })
+    // } else {
       var userId = this.$store.state.user.id
       axios.get('http://localhost:8081/prefferedshops/' + userId)
         .then((response) => {
           this.shops = response.data
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    // }
+  },
+  methods: {
+    unprefferShop (userID, id, index) {
+      let userId = userID
+      let shopId = id
+
+      axios.delete('http://localhost:8081/deleteprefferedshops/' + userId + '/' + shopId)
+        .then((response) => {
+          this.shops.splice(index,1)
         })
         .catch((error) => {
           console.log(error)

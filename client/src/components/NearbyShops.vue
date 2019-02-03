@@ -75,7 +75,8 @@
                     </v-btn>
                     <v-btn
                       v-if="$store.state.isUserLoggedIn"
-                      icon>
+                      icon
+                      @click="dislikeShop($store.state.user.id, shop._id)">
                         <v-icon>thumb_down</v-icon>
                     </v-btn>
                     </v-card-actions>
@@ -114,7 +115,7 @@ export default {
     }
   },
   created () {
-    axios.get('http://localhost:8081/nearby')
+    axios.get('http://localhost:8081/nearby/')
       .then((response) => {
         this.shops = response.data
       })
@@ -136,6 +137,13 @@ export default {
         .catch((error) => {
           console.log(error)
         })
+    },
+    dislikeShop (userID, id) {
+      var dislikedShop = {
+        userId: userID,
+        shopId: id
+      }
+      console.log(dislikedShop)
     },
     getShopsInRadius (radius) {
       axios.get('http://localhost:8081/nearby/radius/' + radius)

@@ -51,7 +51,30 @@ exports.create_a_preffered_shop = function (req, res) {
 }
 
 exports.delete_a_preffered_shop = function (req, res) {
+  console.log(req.body + ' not me')
   PreffShops.remove({ _id: req.params._id }, function (err, shop) {
+    if (err) {
+      res.send(err)
+    } else {
+      res.status(200)
+      res.json(shop)
+    }
+  })
+}
+
+exports.delete_user_preffered_shop = function (req, res) {
+  PreffShops.findOneAndRemove({ $and: [ { userId: req.params.userId }, { shopId: mongoose.Types.ObjectId(req.params.shopId) } ] }, function (err, shop) {
+    if (err) {
+      res.send(err)
+    } else {
+      res.status(200)
+      res.json(shop)
+    }
+  })
+}
+
+exports.delete_all_preffered_shop = function (req, res) {
+  PreffShops.findAndRemove({ userId: req.params.userId }, function (err, shop) {
     if (err) {
       res.send(err)
     } else {
@@ -72,34 +95,34 @@ exports.read_a_preffered_shop = function (req, res) {
   })
 }
 
-exports.nearby_preffered_shop = function (req, res) {
-  axios.get('https://ipapi.co/json') // get the browser's current position
-    .then((response) => {
-      var coord = response.data
-      try {
-        // Shops.createIndexes({ 'location': '2dsphere' })
-        PreffShops.aggregate([ // look for nearby shops using mongo's distance calculation method geoNear
-          {
-            $geoNear: {
-              near: {
-                type: 'Point',
-                coordinates: [parseFloat(coord.longitude), parseFloat(coord.latitude)]
-              },
-              spherical: true,
-              distanceField: 'distance',
-              maxDistance: 10000
-            }
-          }
-        ], function (err, shop) {
-          if (err) {
-            res.send(err)
-          } else {
-            res.status(200)
-            res.json(shop)
-          }
-        })
-      } catch (err) {
-        console.log(err)
-      }
-    })
-}
+// exports.nearby_preffered_shop = function (req, res) {
+//   axios.get('https://ipapi.co/json') // get the browser's current position
+//     .then((response) => {
+//       var coord = response.data
+//       try {
+//         // Shops.createIndexes({ 'location': '2dsphere' })
+//         PreffShops.aggregate([ // look for nearby shops using mongo's distance calculation method geoNear
+//           {
+//             $geoNear: {
+//               near: {
+//                 type: 'Point',
+//                 coordinates: [parseFloat(coord.longitude), parseFloat(coord.latitude)]
+//               },
+//               spherical: true,
+//               distanceField: 'distance',
+//               maxDistance: 10000
+//             }
+//           }
+//         ], function (err, shop) {
+//           if (err) {
+//             res.send(err)
+//           } else {
+//             res.status(200)
+//             res.json(shop)
+//           }
+//         })
+//       } catch (err) {
+//         console.log(err)
+//       }
+//     })
+// }

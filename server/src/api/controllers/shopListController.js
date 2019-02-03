@@ -39,6 +39,7 @@ exports.read_a_shop = function (req, res) {
 }
 
 exports.nearby_shop = function (req, res) {
+  console.log(req.params.uid)
   let radius = req.params.rd
   axios.get('https://ipapi.co/json') // get the browser's current position
     .then((response) => {
