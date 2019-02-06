@@ -20,20 +20,24 @@
     <v-toolbar-items>
       <v-btn
       v-if="$store.state.isUserLoggedIn"
-      flat dark
+      flat
+      dark
+      icon
         router to="prefferedshops"
         >
-        Preffered Shops
+        <v-icon>favorite</v-icon>
       </v-btn>
     </v-toolbar-items>
 
     <v-toolbar-items>
       <v-btn
       v-if="$store.state.isUserLoggedIn"
-      flat dark
+      flat
+      dark
+      icon
         router to="dislikedshops"
         >
-        Disliked Shops
+        <v-icon>block</v-icon>
       </v-btn>
     </v-toolbar-items>
 

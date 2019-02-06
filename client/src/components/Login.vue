@@ -53,7 +53,7 @@ export default {
         this.$emit('close')
         this.email = this.password = ''
         this.$router.push({
-          name: 'nearbyshops'
+          name: 'shops'
         })
       } catch (error) {
         this.error = error.response.data.error // what is returned from axios

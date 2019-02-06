@@ -70,9 +70,10 @@
                     <v-btn
                       v-if="$store.state.isUserLoggedIn"
                       icon
-                      @click="addPrefferedShop($store.state.user.id, shop._id)">
+                      @click="addPrefferedShop($store.state.user.id, shop._id, index)">
                         <v-icon>thumb_up</v-icon>
                     </v-btn>
+
                     <v-btn
                       v-if="$store.state.isUserLoggedIn"
                       icon
@@ -97,6 +98,8 @@ import axios from 'axios'
 export default {
   data () {
     return {
+      likestatus: false,
+      dislikestatus: false,
       search: '',
       shops: [],
       Radius: [
@@ -136,7 +139,7 @@ export default {
     }
   },
   methods: {
-    addPrefferedShop (userID, id) {
+    addPrefferedShop (userID, id, index) {
       var newPerefferedShop = {
         userId: userID,
         shopId: id
@@ -144,7 +147,7 @@ export default {
 
       axios.post('http://localhost:8081/prefferedshops', newPerefferedShop)
         .then((response) => {
-          console.log(response)
+          this.shops.splice(index, 1)
         })
         .catch((error) => {
           console.log(error)
@@ -192,6 +195,7 @@ export default {
     }
   }
 }
+
 </script>
 
 <style scoped>
@@ -223,4 +227,5 @@ export default {
   opacity: 0.5;
   border-color: transparent!important;
 }
+
 </style>
