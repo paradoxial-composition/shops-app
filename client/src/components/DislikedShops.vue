@@ -74,7 +74,7 @@ export default {
     }
   },
   created () {
-    var userId = this.$store.state.user.id
+    let userId = this.$store.state.user.id
     axios.get('http://localhost:8081/dislikedshops/' + userId)
       .then((response) => {
         this.shops = response.data

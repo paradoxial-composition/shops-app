@@ -1,11 +1,11 @@
 'use strict'
 
-var mongoose = require('mongoose')
-var Shops = mongoose.model('Shops')
-var DislikedShops = mongoose.model('DislikedShops')
-var PrefferedShops = mongoose.model('PrefferedShops')
+let mongoose = require('mongoose')
+let Shops = mongoose.model('Shops')
+let DislikedShops = mongoose.model('DislikedShops')
+let PrefferedShops = mongoose.model('PrefferedShops')
 
-var axios = require('axios')
+let axios = require('axios')
 
 exports.list_all_shops = function (req, res) {
   Shops.find({}, function (err, shop) {
@@ -19,7 +19,7 @@ exports.list_all_shops = function (req, res) {
 }
 
 // exports.create_a_shop = function (req, res) {
-//   var newshop = new Shop(req.body)
+//   let newshop = new Shop(req.body)
 //   newshop.save(function (err, shop) {
 //     if (err) {
 //       res.send(err)
@@ -45,7 +45,7 @@ exports.nearby_shop = function (req, res) {
   let radius = req.params.rd
   axios.get('https://ipapi.co/json') // get the browser's current position
     .then((response) => {
-      var coord = response.data
+      let coord = response.data
       try {
         Shops.aggregate([ // look for nearby shops using mongo's distance calculation method geoNear
           {
@@ -93,7 +93,7 @@ exports.nearby_user_shop = function (req, res) {
           let radius = req.params.rd
           axios.get('https://ipapi.co/json') // get the browser's current position
             .then((response) => {
-              var coord = response.data
+              let coord = response.data
               try {
                 Shops.aggregate([ // this will fetch us every shop whom wich id is not in the userShopList array and are nearby the user's position
                   {

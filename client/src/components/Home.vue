@@ -89,7 +89,7 @@ export default {
   },
   methods: {
     addPrefferedShop (userID, id) {
-      var newPerefferedShop = {
+      let newPerefferedShop = {
         userId: userID,
         shopId: id
       }

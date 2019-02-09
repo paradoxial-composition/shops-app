@@ -1,26 +1,26 @@
-var express = require('express')
-var app = express()
-var port = process.env.PORT || 8085
-var mongoose = require('mongoose')
+let express = require('express')
+let app = express()
+let port = process.env.PORT || 8085
+let mongoose = require('mongoose')
 require('./models/shopListModel')
 require('./models/prefferedShopListModel')
 require('./models/dislikedShopListModel')
-var bodyParser = require('body-parser')
+let bodyParser = require('body-parser')
 
 mongoose.Promise = global.Promise
 
-mongoose.connect('mongodb://localhost/MyShops', { useNewUrlParser: true })
+mongoose.connect('mongodb://localhost:27017/MyShops', { useNewUrlParser: true })
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
-var routes = require('./routes/shopListRoutes')
+let routes = require('./routes/shopListRoutes')
 routes(app)
 
-var prefferedRoutes = require('./routes/prefferedShopListRoutes')
+let prefferedRoutes = require('./routes/prefferedShopListRoutes')
 prefferedRoutes(app)
 
-var dislikedRoutes = require('./routes/dislikedShopListRoutes')
-prefferedRoutes(app)
+let dislikedRoutes = require('./routes/dislikedShopListRoutes')
+dislikedRoutes(app)
 
 app.listen(port)

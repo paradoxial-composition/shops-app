@@ -1,10 +1,10 @@
 'use strict'
 
-var mongoose = require('mongoose')
-var PreffShops = mongoose.model('PrefferedShops')
-var shops = mongoose.model('Shops')
+let mongoose = require('mongoose')
+let PreffShops = mongoose.model('PrefferedShops')
+let shops = mongoose.model('Shops')
 
-var axios = require('axios')
+let axios = require('axios')
 
 exports.list_all_preffered_shops = function (req, res) {
   PreffShops.find({}, function (err, shop) {
@@ -39,7 +39,7 @@ exports.list_user_preffered_shops = function (req, res) { // this function drove
 }
 
 exports.create_a_preffered_shop = function (req, res) {
-  var newshop = new PreffShops(req.body)
+  let newshop = new PreffShops(req.body)
   newshop.save(function (err, shop) {
     if (err) {
       res.send(err)
@@ -93,35 +93,3 @@ exports.read_a_preffered_shop = function (req, res) {
     }
   })
 }
-
-// exports.nearby_preffered_shop = function (req, res) {
-//   axios.get('https://ipapi.co/json') // get the browser's current position
-//     .then((response) => {
-//       var coord = response.data
-//       try {
-//         // Shops.createIndexes({ 'location': '2dsphere' })
-//         PreffShops.aggregate([ // look for nearby shops using mongo's distance calculation method geoNear
-//           {
-//             $geoNear: {
-//               near: {
-//                 type: 'Point',
-//                 coordinates: [parseFloat(coord.longitude), parseFloat(coord.latitude)]
-//               },
-//               spherical: true,
-//               distanceField: 'distance',
-//               maxDistance: 10000
-//             }
-//           }
-//         ], function (err, shop) {
-//           if (err) {
-//             res.send(err)
-//           } else {
-//             res.status(200)
-//             res.json(shop)
-//           }
-//         })
-//       } catch (err) {
-//         console.log(err)
-//       }
-//     })
-// }

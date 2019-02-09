@@ -120,7 +120,7 @@ export default {
   created () {
     if (this.$store.state.user != null) {
       console.log('i m loged in: ' + this.$store.state.user)
-      var userId = this.$store.state.user.id
+      let userId = this.$store.state.user.id
       axios.get('http://localhost:8081/nearbyuser/' + userId)
         .then((response) => {
           this.shops = response.data
@@ -140,7 +140,7 @@ export default {
   },
   methods: {
     addPrefferedShop (userID, id, index) {
-      var newPerefferedShop = {
+      let newPerefferedShop = {
         userId: userID,
         shopId: id
       }
@@ -154,7 +154,7 @@ export default {
         })
     },
     dislikeShop (userID, id, index) {
-      var dislikedShop = {
+      let dislikedShop = {
         userId: userID,
         shopId: id
       }

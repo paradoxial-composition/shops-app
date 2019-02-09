@@ -1,9 +1,9 @@
 'use strict'
 
-var mongoose = require('mongoose')
-var Schema = mongoose.Schema
+let mongoose = require('mongoose')
+let Schema = mongoose.Schema
 
-var DislikedShopSchema = new Schema({
+let DislikedShopSchema = new Schema({
   shopId: {
     type: mongoose.ObjectId
   },
@@ -13,4 +13,5 @@ var DislikedShopSchema = new Schema({
 },
 { collection: 'DislikedShops' })
 
+DislikedShopSchema.index({ userId: 1, shopId: 1 }, { unique: true })
 module.exports = mongoose.model('DislikedShops', DislikedShopSchema)

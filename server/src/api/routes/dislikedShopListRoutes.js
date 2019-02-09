@@ -1,7 +1,7 @@
 'use strict'
 
 module.exports = function (app) {
-  var dislikedShopList = require('../controllers/dislikedShopListController')
+  let dislikedShopList = require('../controllers/dislikedShopListController')
 
   // disliked Shops Routes
   app.route('/dislikedshops')

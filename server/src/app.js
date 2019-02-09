@@ -5,7 +5,7 @@ const morgan = require('morgan')
 const { sequelize } = require('./models')
 const config = require('./config/config')
 
-var mongoose = require('mongoose')
+let mongoose = require('mongoose')
 require('./api/models/shopListModel')
 require('./api/models/prefferedShopListModel')
 require('./api/models/dislikedShopListModel')

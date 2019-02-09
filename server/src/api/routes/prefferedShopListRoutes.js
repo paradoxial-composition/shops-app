@@ -1,7 +1,7 @@
 'use strict'
 
 module.exports = function (app) {
-  var prefferedShopList = require('../controllers/prefferedShopListController')
+  let prefferedShopList = require('../controllers/prefferedShopListController')
 
   // Preffered Shops Routes
   app.route('/prefferedshops')
